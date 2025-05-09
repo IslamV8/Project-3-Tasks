@@ -4,6 +4,12 @@
     { "src": "api/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.js" }
+    
+    { "src": "/auth/(.*)",     "dest": "/api/auth/$1" },
+    
+    { "src": "/boards/(.*)",   "dest": "/api/boards/$1" },
+    { "src": "/tasks/(.*)",    "dest": "/api/tasks/$1" },
+   
+    { "src": "/api/(.*)",      "dest": "/api/index.js" }
   ]
 }
