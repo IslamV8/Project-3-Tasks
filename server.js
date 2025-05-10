@@ -1,6 +1,7 @@
 const express = require('express');
 const setupSwagger = require('./swagger');
 const cors = require('cors');
+const serverless = require('serverless-http'); // ✅ جديد
 require('dotenv').config();
 
 const authRoutes  = require('./routes/authRoutes');
@@ -19,10 +20,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/boards', boardRoutes);
 app.use('/api/tasks', taskRoutes);
 
-// ✅ Export the app once فقط
-module.exports = app;
+// ✅ تصدير كـ serverless handler
+module.exports = serverless(app);
 
-// ✅ Optional: Local only
+// ✅ Optional: تشغيل محلي
 if (require.main === module) {
   const mongoose = require('mongoose');
   mongoose.connect(process.env.MONGO_URI)
