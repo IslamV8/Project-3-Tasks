@@ -20,17 +20,16 @@ app.use('/api/auth', authRoutes);
 app.use('/api/boards', boardRoutes);
 app.use('/api/tasks', taskRoutes);
 
-// ✅ تصدير كـ serverless handler
-module.exports = serverless(app);
 
 // ✅ Optional: تشغيل محلي
 if (require.main === module) {
   const mongoose = require('mongoose');
+
   mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-      console.log('Connected to DB');
-      const port = process.env.PORT || 5000;
-      app.listen(port, () => console.log(`Server running on port ${port}`));
-    })
-    .catch(err => console.error(err));
+  .then(() => console.log('✅ MongoDB connected!'))
+  .catch(err => console.error('❌ DB Error:', err));
+    
 }
+
+// ✅ تصدير كـ serverless handler
+module.exports = serverless(app);
